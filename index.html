@@ -73,7 +73,7 @@
     text-wrap:balance;
   }
 
-  button{ font-family:inherit; }
+  button, input{ font-family:inherit; }
   button:focus-visible, input:focus-visible{
     outline: 3px solid var(--pertamina-red);
     outline-offset: 2px;
@@ -93,47 +93,49 @@
     align-items:center;
     justify-content:space-between;
     background: linear-gradient(90deg, var(--pertamina-red) 50%, var(--pertamina-blue) 50%);
-    padding:10px 14px;
+    padding:11px 14px;
     border-radius:14px;
-    box-shadow: 0 4px 0 rgba(0,0,0,.25);
+    box-shadow: 0 4px 8px rgba(0,0,0,.28);
   }
   .logo-text{
     font-family:'Baloo 2';
     font-weight:800;
-    font-size:.95rem;
+    font-size:.96rem;
     color:#fff;
     letter-spacing:.8px;
     text-transform:uppercase;
   }
   .lives-display{
     display:flex;
-    gap:5px;
-    font-size:1.3rem;
+    gap:6px;
+    font-size:1.2rem;
   }
-  .life-heart{ transition: transform .2s ease; }
-  .life-heart.lost{ transform:scale(0.7); opacity:.3; }
+  .life-heart{ transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+  .life-heart.lost{ transform:scale(0.4); opacity:.2; }
 
   /* ---------- Score bar ---------- */
   .score-bar{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.14);
+    background:linear-gradient(135deg, rgba(196,30,58,.12), rgba(0,94,184,.12));
+    border:1.5px solid rgba(255,255,255,.16);
     color:#fff;
     border-radius:12px;
-    padding:8px 12px;
+    padding:10px 13px;
   }
   .score-label{
     font-weight:700;
-    font-size:.85rem;
+    font-size:.82rem;
     color:#dce6f7;
+    letter-spacing:.5px;
   }
   .score-number{
     font-family:'Baloo 2';
     font-weight:800;
-    font-size:1.15rem;
+    font-size:1.3rem;
     color:var(--gold);
+    text-shadow: 0 2px 4px rgba(0,0,0,.3);
   }
 
   /* ---------- Pitch stage ---------- */
@@ -141,33 +143,33 @@
     position:relative;
     border-radius:20px;
     overflow:hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.08);
+    box-shadow: 0 10px 26px rgba(0,0,0,.38), inset 0 0 0 1px rgba(255,255,255,.08);
     background:
-      radial-gradient(120px 80px at 18% 8%, rgba(255,255,255,.32), transparent 65%),
-      radial-gradient(120px 80px at 82% 8%, rgba(255,255,255,.25), transparent 65%),
+      radial-gradient(140px 90px at 20% 10%, rgba(255,255,255,.35), transparent 65%),
+      radial-gradient(140px 90px at 80% 10%, rgba(255,255,255,.28), transparent 65%),
       linear-gradient(180deg, #0a1730 0%, #1a4a7a 35%, var(--pitch) 35%, var(--pitch-light) 100%);
-    min-height:180px;
+    min-height:190px;
   }
 
   .floodlight{
     position:absolute;
-    top:4px;
-    width:5px; height:24px;
-    background: linear-gradient(180deg,#dfe9ff,#8ea6d6);
-    border-radius:2px;
+    top:5px;
+    width:6px; height:26px;
+    background: linear-gradient(180deg,#fff8e8,#a8c6e8);
+    border-radius:3px;
   }
   .floodlight::before{
     content:"";
     position:absolute;
-    top:-9px; left:50%;
+    top:-11px; left:50%;
     transform:translateX(-50%);
-    width:20px; height:9px;
+    width:22px; height:11px;
     background:#e9f1ff;
-    border-radius:2px 2px 0 0;
-    box-shadow:0 0 14px 4px rgba(255,255,255,.48);
+    border-radius:3px 3px 0 0;
+    box-shadow:0 0 16px 5px rgba(255,255,255,.52);
   }
-  .floodlight.left{ left:12px; }
-  .floodlight.right{ right:12px; }
+  .floodlight.left{ left:13px; }
+  .floodlight.right{ right:13px; }
 
   .goal{
     position:absolute;
@@ -183,8 +185,8 @@
     border-bottom:none;
     border-radius:5px 5px 0 0;
     background:
-      repeating-linear-gradient(90deg, rgba(255,255,255,.5) 0 2px, transparent 2px 11px),
-      repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 2px, transparent 2px 11px);
+      repeating-linear-gradient(90deg, rgba(255,255,255,.55) 0 2px, transparent 2px 11px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.55) 0 2px, transparent 2px 11px);
   }
   .goal .flash{
     position:absolute; inset:0;
@@ -225,9 +227,9 @@
     position:absolute;
     left:50%;
     bottom:14px;
-    width:40px; height:40px;
+    width:44px; height:44px;
     transform:translateX(-50%);
-    filter: drop-shadow(0 5px 4px rgba(0,0,0,.35));
+    filter: drop-shadow(0 6px 5px rgba(0,0,0,.38));
   }
   .ball-wrap svg{ width:100%; height:100%; display:block; }
   .ball-wrap.kick-goal{ animation: kickGoal 1s cubic-bezier(.3,.7,.4,1) forwards; }
@@ -246,8 +248,8 @@
   .shake{ animation: shakeStage .4s ease; }
   @keyframes shakeStage{
     0%,100%{ transform:translateX(0); }
-    20%{ transform:translateX(-4px); }
-    40%{ transform:translateX(4px); }
+    20%{ transform:translateX(-5px); }
+    40%{ transform:translateX(5px); }
     60%{ transform:translateX(-3px); }
     80%{ transform:translateX(3px); }
   }
@@ -258,14 +260,14 @@
   .card{
     background: var(--panel-bg);
     border-radius:16px;
-    padding:14px 14px 12px;
-    box-shadow: 0 5px 0 #e8dcc0, 0 8px 16px rgba(0,0,0,.18);
+    padding:15px;
+    box-shadow: 0 6px 0 #e8dcc0, 0 10px 20px rgba(0,0,0,.2);
     border: 2px solid #f2e6c9;
   }
 
   .timer-display{
     text-align:center;
-    margin-bottom:10px;
+    margin-bottom:12px;
   }
   .timer-label{
     font-weight:700;
@@ -273,11 +275,11 @@
     text-transform:uppercase;
     color: var(--ink-soft);
     letter-spacing:.06em;
-    margin-bottom:2px;
+    margin-bottom:3px;
   }
   .timer-ring{
-    width:80px;
-    height:80px;
+    width:85px;
+    height:85px;
     margin:0 auto;
     position:relative;
     display:flex;
@@ -293,46 +295,51 @@
     fill:none;
     stroke: var(--ink-soft);
     stroke-width:4;
-    stroke-dasharray:251;
+    stroke-dasharray:268;
     stroke-dashoffset:0;
-    transition: stroke-dashoffset .1s linear, stroke .2s ease;
+    transition: stroke-dashoffset .15s linear, stroke .25s ease;
     transform:rotate(-90deg);
     transform-origin:50% 50%;
   }
   .timer-circle.warning{ stroke: var(--gold); }
-  .timer-circle.critical{ stroke: var(--crimson); animation: pulse-crit .4s ease infinite; }
+  .timer-circle.critical{ stroke: var(--crimson); animation: pulse-crit .3s ease infinite; }
   @keyframes pulse-crit{
     0%,100%{ stroke-width:4; }
-    50%{ stroke-width:6; }
+    50%{ stroke-width:7; }
   }
   .timer-text{
     font-family:'Baloo 2';
     font-weight:800;
-    font-size:1.8rem;
+    font-size:2rem;
     color: var(--ink);
     z-index:1;
+    line-height:1;
   }
   .timer-text.warning{ color: var(--gold); }
   .timer-text.critical{ color: var(--crimson); }
 
-  .player-name-display{
+  .player-display{
     text-align:center;
-    margin:12px 0 14px;
+    margin:14px 0 16px;
+    min-height:90px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
   }
   .player-label{
     font-weight:700;
     font-size:.8rem;
     text-transform:uppercase;
     color: var(--ink-soft);
-    letter-spacing:.08em;
-    margin-bottom:4px;
+    letter-spacing:.1em;
+    margin-bottom:6px;
   }
   .player-name{
     font-family:'Baloo 2';
     font-weight:800;
-    font-size:1.6rem;
+    font-size:2.2rem;
     color: var(--pertamina-blue);
-    line-height:1.1;
+    line-height:1.15;
     letter-spacing:.3px;
     word-break:break-word;
   }
@@ -340,57 +347,62 @@
     display:inline-block;
     font-weight:900;
     font-size:.65rem;
+    padding:4px 10px;
+    border-radius:12px;
     text-transform:uppercase;
-    letter-spacing:.08em;
-    padding:3px 9px;
-    border-radius:999px;
-    margin-top:4px;
+    letter-spacing:.8px;
+    margin-top:6px;
+    background:#e8f0ff;
+    color: var(--pertamina-blue);
   }
-  .difficulty-tag.easy{ background:#c8e6c9; color:#2e7d32; }
-  .difficulty-tag.medium{ background:#fff9c4; color:#f57f17; }
-  .difficulty-tag.hard{ background:#ffccbc; color:#d84315; }
-  .difficulty-tag.extreme{ background:#f8bbd0; color:#c2185b; }
+  .difficulty-tag.easy{ background:#e8ffe8; color:#0f6b3c; }
+  .difficulty-tag.medium{ background:#fff8e8; color:#b8860b; }
+  .difficulty-tag.hard{ background:#ffe8e8; color: var(--crimson-deep); }
+  .difficulty-tag.extreme{ background:#f0e8ff; color:#6b1b8f; }
 
-  .answer-form{ display:flex; flex-direction:column; gap:8px; }
+  .answer-form{ display:flex; flex-direction:column; gap:9px; }
   .answer-input{
     width:100%;
     font-family:'Baloo 2';
-    font-weight:600;
-    font-size:1.1rem;
-    padding:12px 13px;
-    border-radius:12px;
+    font-weight:700;
+    font-size:1.15rem;
+    padding:13px 14px;
+    border-radius:13px;
     border:2px solid #dcd2b3;
     background:#fff;
     color: var(--ink);
     text-align:center;
     text-transform:uppercase;
-    letter-spacing:1px;
+    letter-spacing:1.5px;
   }
-  .answer-input::placeholder{ color:#9fa9b8; font-weight:500; font-family:'Nunito'; font-size:.9rem; }
+  .answer-input::placeholder{ color:#b0b8c6; font-weight:600; font-family:'Nunito'; font-size:.95rem; letter-spacing:.5px; }
+  .answer-input:focus{ border-color: var(--pertamina-blue); box-shadow: 0 0 0 3px rgba(0,94,184,.08); }
 
   .submit-btn{
     border:none;
-    border-radius:12px;
-    padding:12px 10px;
+    border-radius:13px;
+    padding:13px 10px;
     font-family:'Baloo 2';
     font-weight:800;
-    font-size:1.05rem;
+    font-size:1.1rem;
     color:#fff;
     background: linear-gradient(180deg, var(--pertamina-red), #a01830);
     box-shadow: 0 5px 0 #7a141f;
     cursor:pointer;
     transition: transform .08s ease, box-shadow .08s ease;
+    letter-spacing:.5px;
   }
-  .submit-btn:active{ transform:translateY(3px); box-shadow:0 2px 0 #7a141f; }
-  .submit-btn:disabled{ opacity:.6; }
+  .submit-btn:hover:not(:disabled){ transform:translateY(-2px); box-shadow: 0 7px 0 #7a141f; }
+  .submit-btn:active:not(:disabled){ transform:translateY(3px); box-shadow:0 2px 0 #7a141f; }
+  .submit-btn:disabled{ opacity:.5; cursor:not-allowed; }
 
   .feedback{
     text-align:center;
     font-weight:800;
-    font-size:.85rem;
+    font-size:.88rem;
     color: var(--crimson-deep);
-    min-height:1em;
-    margin-top:2px;
+    min-height:1.2em;
+    margin-top:3px;
   }
 
   /* ---------- Status bar ---------- */
@@ -398,18 +410,18 @@
     display:flex;
     align-items:center;
     gap:8px;
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.07);
+    border:1.5px solid rgba(255,255,255,.16);
     border-radius:12px;
-    padding:8px 12px;
-    min-height:14px;
+    padding:9px 12px;
+    min-height:16px;
   }
   .status-bar svg{ width:24px; height:24px; flex-shrink:0; }
   .status-bar p{
     margin:0;
     font-weight:700;
     color:#dce6f7;
-    font-size:.8rem;
+    font-size:.82rem;
     line-height:1.3;
   }
 
@@ -427,71 +439,69 @@
   .panel{
     background: var(--panel-bg);
     border-radius:22px;
-    padding:26px 20px;
+    padding:28px 22px;
     max-width:400px;
     width:100%;
     text-align:center;
-    box-shadow: 0 12px 0 rgba(0,0,0,.25);
+    box-shadow: 0 14px 0 rgba(0,0,0,.28);
     border:3px solid #fff;
   }
   .pertamina-logo-panel{
     width:100%;
-    height:50px;
+    height:52px;
     background: linear-gradient(90deg, var(--pertamina-red) 50%, var(--pertamina-blue) 50%);
-    border-radius:10px;
-    margin-bottom:14px;
+    border-radius:11px;
+    margin-bottom:16px;
     display:flex;
     align-items:center;
     justify-content:center;
     font-family:'Baloo 2';
     font-weight:800;
-    font-size:.9rem;
+    font-size:.95rem;
     color:#fff;
-    letter-spacing:.7px;
+    letter-spacing:.8px;
     text-transform:uppercase;
   }
-  .panel h1{ font-size:1.4rem; margin:6px 0 3px; color: var(--pertamina-blue); line-height:1.2; }
-  .panel .subtitle{ font-weight:700; color: var(--ink-soft); margin:0 0 14px; font-size:.88rem; }
+  .panel h1{ font-size:1.5rem; margin:8px 0 4px; color: var(--pertamina-blue); line-height:1.2; }
+  .panel .subtitle{ font-weight:700; color: var(--ink-soft); margin:0 0 16px; font-size:.9rem; }
   .rules{
     text-align:left;
     background:#eef6ee;
-    border-radius:12px;
-    padding:10px 12px;
-    margin:0 0 18px;
-    font-size:.8rem;
+    border-radius:13px;
+    padding:11px 13px;
+    margin:0 0 20px;
+    font-size:.82rem;
     font-weight:700;
     color: var(--ink-soft);
     display:flex;
     flex-direction:column;
-    gap:5px;
+    gap:6px;
   }
   .cta-btn{
     border:none;
     border-radius:999px;
-    padding:13px 28px;
+    padding:14px 30px;
     font-family:'Baloo 2';
     font-weight:800;
-    font-size:1.05rem;
+    font-size:1.1rem;
     color:#fff;
     background: linear-gradient(180deg, var(--pertamina-red), #a01830);
     box-shadow: 0 6px 0 #7a141f;
     cursor:pointer;
     width:100%;
+    transition: transform .08s ease, box-shadow .08s ease;
   }
   .cta-btn:active{ transform:translateY(3px); box-shadow:0 2px 0 #7a141f; }
 
-  .trophy{ width:70px; height:70px; margin:0 auto 4px; filter: drop-shadow(0 6px 6px rgba(0,0,0,.2)); }
-  .end-stats{ font-weight:700; color: var(--ink-soft); margin:0 0 6px; font-size:.9rem; }
+  .trophy{ width:76px; height:76px; margin:0 auto 8px; filter: drop-shadow(0 6px 6px rgba(0,0,0,.22)); }
+  .end-stats{ font-weight:700; color: var(--ink-soft); margin:0 0 8px; font-size:.95rem; }
   .end-stats b{ color: var(--pertamina-blue); }
-  .end-message{ font-weight:800; color: var(--pertamina-blue); margin:0 0 16px; font-size:.95rem; }
+  .end-message{ font-weight:800; color: var(--pertamina-blue); margin:0 0 18px; font-size:.96rem; line-height:1.4; }
 
   .visually-hidden{ position:absolute; width:1px;height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
   @media (prefers-reduced-motion: reduce){
-    .ball-wrap.kick-goal, .ball-wrap.kick-miss, .banner.show, .goal.celebrate .flash, .shake, .pulse-crit{
-      animation: none !important;
-      transition: none !important;
-    }
+    * { animation: none !important; transition: none !important; }
   }
 </style>
 
@@ -499,28 +509,31 @@
   <defs>
     <g id="soccer-ball">
       <defs>
-        <radialGradient id="ballGradient" cx="30%" cy="30%">
+        <radialGradient id="ballGrad" cx="32%" cy="32%">
           <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#e0e0e0;stop-opacity:1" />
         </radialGradient>
       </defs>
-      <!-- Main ball sphere -->
-      <circle cx="50" cy="50" r="46" fill="url(#ballGradient)" stroke="#1a1a1a" stroke-width="0.8"/>
-      <!-- Pentagons (black) - classic soccer ball pattern -->
-      <polygon points="50,15 60,28 57,42 43,42 40,28" fill="#000"/>
-      <polygon points="50,85 60,72 57,58 43,58 40,72" fill="#000"/>
-      <polygon points="20,50 28,35 38,38 35,52 25,55" fill="#000"/>
-      <polygon points="80,50 72,65 62,62 65,48 75,45" fill="#000"/>
-      <polygon points="32,25 42,20 48,30 38,35" fill="#000"/>
-      <polygon points="68,75 58,80 52,70 62,65" fill="#000"/>
-      <!-- Hexagons (white with outlines) -->
-      <polygon points="45,32 55,32 61,45 55,58 45,58 39,45" fill="none" stroke="#000" stroke-width="0.5"/>
-      <polygon points="25,40 33,35 43,40 40,50 32,55 24,50" fill="none" stroke="#000" stroke-width="0.5"/>
-      <polygon points="75,60 67,65 57,60 60,50 68,45 76,50" fill="none" stroke="#000" stroke-width="0.5"/>
-      <polygon points="32,65 42,62 48,72 42,80 32,78 26,70" fill="none" stroke="#000" stroke-width="0.5"/>
-      <polygon points="68,25 58,28 52,18 62,15 72,18 78,30" fill="none" stroke="#000" stroke-width="0.5"/>
-      <!-- Highlight reflection for 3D effect -->
-      <ellipse cx="35" cy="35" rx="12" ry="10" fill="#fff" opacity="0.3"/>
+      <!-- Main sphere with gradient -->
+      <circle cx="50" cy="50" r="47" fill="url(#ballGrad)" stroke="#0a0a0a" stroke-width="0.8"/>
+      <!-- Black pentagons (5 sides) -->
+      <polygon points="50,18 62,32 58,48 42,48 38,32" fill="#000"/>
+      <polygon points="50,82 62,68 58,52 42,52 38,68" fill="#000"/>
+      <polygon points="22,50 32,36 42,40 38,54 28,58" fill="#000"/>
+      <polygon points="78,50 68,64 58,60 62,46 72,42" fill="#000"/>
+      <polygon points="35,25 45,20 50,32 40,36" fill="#000"/>
+      <polygon points="65,75 55,80 50,68 60,64" fill="#000"/>
+      <!-- White hexagons with subtle outlines -->
+      <g fill="none" stroke="#222" stroke-width="0.6" opacity="0.7">
+        <polygon points="46,35 54,35 62,50 54,65 46,65 38,50"/>
+        <polygon points="28,42 36,36 46,40 44,52 34,56 26,52"/>
+        <polygon points="72,58 64,64 54,60 56,48 66,44 74,48"/>
+        <polygon points="38,68 48,65 52,75 44,82 36,78 32,72"/>
+        <polygon points="62,25 54,28 50,18 60,16 68,20"/>
+      </g>
+      <!-- Highlights for 3D depth -->
+      <ellipse cx="38" cy="36" rx="13" ry="11" fill="#fff" opacity="0.28"/>
+      <ellipse cx="72" cy="62" rx="8" ry="6" fill="#fff" opacity="0.15"/>
     </g>
   </defs>
 </svg>
@@ -537,66 +550,61 @@
   </div>
 
   <div class="score-bar">
-    <span class="score-label">GAWANG TERCETAK</span>
+    <span class="score-label">⚽ GAWANG</span>
     <span class="score-number" id="scoreVal">0</span>
   </div>
 
   <div class="stage" id="stage">
     <div class="floodlight left"></div>
     <div class="floodlight right"></div>
-
     <div class="goal" id="goal">
       <div class="frame"></div>
       <div class="flash"></div>
     </div>
-
     <div class="banner" id="banner">GOAL!</div>
-
     <div class="ball-wrap" id="ball">
       <svg viewBox="0 0 100 100"><use href="#soccer-ball"/></svg>
     </div>
-
     <canvas class="confetti-canvas" id="confetti"></canvas>
   </div>
 
   <div class="card">
     <div class="timer-display">
-      <div class="timer-label">Waktu Tersisa</div>
+      <div class="timer-label">⏱️ Waktu Tersisa</div>
       <div class="timer-ring">
         <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="40" class="timer-circle" id="timerCircle"/>
+          <circle cx="50" cy="50" r="42.5" class="timer-circle" id="timerCircle"/>
         </svg>
         <div class="timer-text" id="timerText">5</div>
       </div>
     </div>
 
-    <div class="player-name-display">
-      <div class="player-label">🏟️ Ketik Nama Pemain</div>
+    <div class="player-display">
+      <div class="player-label">🏟️ Ketik Nama Pemain Ini</div>
       <div class="player-name" id="playerName">LOADING...</div>
-      <div class="difficulty-tag" id="difficultyTag">EASY</div>
+      <span class="difficulty-tag" id="difficultyTag">EASY</span>
     </div>
 
-    <form class="answer-form" id="answerForm" autocomplete="off">
+    <form class="answer-form" id="answerForm">
       <input
         class="answer-input"
         id="answerInput"
         type="text"
-        placeholder="Ketik nama pemain di atas..."
+        placeholder="Ketik nama di atas..."
         autocomplete="off"
         autocapitalize="off"
         autocorrect="off"
         spellcheck="false"
-        inputmode="text"
         maxlength="60"
       />
-      <button class="submit-btn" id="submitBtn" type="submit">SUNDUL ⚽</button>
+      <button class="submit-btn" id="submitBtn" type="submit">SUNDUL ⚽ (Enter)</button>
     </form>
     <p class="feedback" id="feedback"></p>
   </div>
 
   <div class="status-bar">
     <svg viewBox="0 0 100 100"><use href="#soccer-ball"/></svg>
-    <p id="statusMsg" aria-live="polite">Siap untuk ditendang? Ketik nama pemain dengan cepat!</p>
+    <p id="statusMsg">Siap untuk ditendang? Ketik nama pemain dengan cepat!</p>
   </div>
 </div>
 
@@ -604,12 +612,12 @@
   <div class="panel">
     <div class="pertamina-logo-panel">My PERTAMINA</div>
     <h1>Penalty Rush</h1>
-    <p class="subtitle">⚽ Ketik Nama Pemain Dengan Cepat!</p>
+    <p class="subtitle">⚽ Ketik Nama Pemain dengan Cepat!</p>
     <div class="rules">
-      <span>⏱️ 5 detik untuk mengetik nama pemain</span>
-      <span>⌨️ Ketik PERSIS sesuai nama yang muncul</span>
+      <span>⏱️ Hanya 5 detik untuk ketik nama</span>
+      <span>⌨️ Ketik PERSIS sama dengan nama yang muncul</span>
       <span>❤️ 3 nyawa — salah 3x = GAME OVER</span>
-      <span>🔥 Nama panjang = lebih susah, semakin banyak poin!</span>
+      <span>📈 Sulit terus bertambah — nama panjang = poin besar!</span>
     </div>
     <button class="cta-btn" id="startBtn">MULAI PERTANDINGAN ▶</button>
   </div>
@@ -636,121 +644,51 @@
 (function(){
   "use strict";
 
-  var PLAYERS_POOL = [
-    {name:'MESSI', diff:null},
-    {name:'KANE', diff:null},
-    {name:'SALAH', diff:null},
-    {name:'SAKA', diff:null},
-    {name:'RODRI', diff:null},
-    {name:'FODEN', diff:null},
-    {name:'NEYMAR', diff:null},
-    {name:'RONALDO', diff:null},
-    {name:'HAALAND', diff:null},
-    {name:'VINÍCIUS JR', diff:null},
-    {name:'MBAPPÉ', diff:null},
-    {name:'BELLINGHAM', diff:null},
-    {name:'GREALISH', diff:null},
-    {name:'VAN DIJK', diff:null},
-    {name:'BENZEMA', diff:null},
-    {name:'LEWANDOWSKI', diff:null},
-    {name:'MODRIĆ', diff:null},
-    {name:'LAMINE YAMAL', diff:null},
-    {name:'ACHRAF HAKIMI', diff:null},
-    {name:'ALPHONSO DAVIES', diff:null},
-    {name:'JOÃO FÉLIX', diff:null},
-    {name:'BUKAYO SAKA', diff:null},
-    {name:'SERGIO BUSQUETS', diff:null},
-    {name:'PEDRI GONZÁLEZ', diff:null},
-    {name:'GAVI PÁEZ', diff:null},
-    {name:'THOMAS MÜLLER', diff:null},
-    {name:'MANUEL NEUER', diff:null},
-    {name:'ANDREW ROBERTSON', diff:null},
-    {name:'JORDI ALBA RAMOS', diff:null},
-    {name:'GERARD PIQUÉ', diff:null},
-    {name:'SERGEJ MILINKOVIĆ-SAVIĆ', diff:null},
-    {name:'ALEKSANDAR MITROVIĆ', diff:null},
-    {name:'EMILIANO MARTÍNEZ', diff:null},
-    {name:'ÁNGEL DI MARÍA', diff:null},
-    {name:'PAULO DYBALA', diff:null},
-    {name:'JULIÁN ÁLVAREZ', diff:null},
-    {name:'ALEKSANDR KOKORIN', diff:null},
-    {name:'SERGIUSZ MILEVSKIY', diff:null},
-    {name:'SERHIJ SYDORCHUK', diff:null},
-    {name:'ANDRIY SHEVCHENKO', diff:null},
-    {name:'VASYL KULCHYTSKYY', diff:null},
-    {name:'OLEG SHATOV', diff:null},
-    {name:'VLADISLAV SOLOVEI', diff:null},
-    {name:'VIACHESLAV MALAFEEV', diff:null},
-    {name:'MUKHAMMADSALOKHIDDIN ABDULLAEV', diff:null},
-    {name:'JONIBEKJON KARIMOV', diff:null},
-    {name:'ILDARJON ZAKHIDOV', diff:null},
-    {name:'SHUKHRAT MUKHAMMADIYEV', diff:null},
-    {name:'DUŠAN VLAHOVIĆ', diff:null},
-    {name:'ALEKSANDR ISAK', diff:null},
-    {name:'ERLING BRAUT HAALAND', diff:null},
-    {name:'MARTIN ØDEGAARD', diff:null},
-    {name:'MATTHIJS DE LIGT', diff:null},
-    {name:'VIRGIL VAN DIJK', diff:null},
-    {name:'GIOVANNI VAN BRONCKHORST', diff:null},
-    {name:'MATTHIAS GINTER', diff:null},
-    {name:'BENJAMIN PAVARD', diff:null},
-    {name:'ANTONIO RÜDIGER', diff:null},
-    {name:'MATS HUMMELS', diff:null},
-    {name:'CHRISTOPH KRAMER', diff:null},
-    {name:'EMRE CAN', diff:null},
-    {name:'JÉRÔME BOATENG', diff:null},
-    {name:'SÉBASTIEN KOHN', diff:null},
-    {name:'MOUSSA DIABY', diff:null},
-    {name:'WILLIAM SALIBA', diff:null},
-    {name:'RENATO SANCHES', diff:null},
-    {name:'GONÇALO INÁCIO', diff:null},
-    {name:'JOÃO CANCELO', diff:null},
-    {name:'DIOGO COSTA', diff:null},
-    {name:'RÚBEN DIAS', diff:null},
-    {name:'RÚBEN SEMEDO', diff:null},
-    {name:'PEPE FERREIRA', diff:null},
-    {name:'JOÃO PALHINHA', diff:null},
-    {name:'BRUNO FERNANDES', diff:null},
-    {name:'CRISTIANO RONALDO', diff:null},
-    {name:'DANILO PEREIRA', diff:null},
-    {name:'AMANCIO ORTEGA', diff:null}
+  var PLAYERS_EASY = [
+    {name:'KANE',points:5}, {name:'SALAH',points:5}, {name:'SAKA',points:5},
+    {name:'FODEN',points:5}, {name:'RODRI',points:5}, {name:'MESSI',points:5},
+    {name:'NEYMAR',points:5}, {name:'RONALDO',points:5}, {name:'HAALAND',points:5}
   ];
 
-  function getDifficulty(name){
-    var len = name.length;
-    if(len <= 6) return 'EASY';
-    if(len <= 12) return 'MEDIUM';
-    if(len <= 18) return 'HARD';
-    return 'EXTREME';
-  }
-
-  function shuffle(arr){
-    var a = arr.slice();
-    for(var i=a.length-1;i>0;i--){
-      var j = Math.floor(Math.random()*(i+1));
-      var t=a[i]; a[i]=a[j]; a[j]=t;
-    }
-    return a;
-  }
-  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
-  var STATE_READY = [
-    'Siap untuk ditendang? Ketik dengan cepat!',
-    'Bersiaplah untuk adrenalin rush!',
-    'Waktu terbatas — fokus dan akurat!'
-  ];
-  var STATE_GOAL = [
-    'GOOOOOAL! Sempurna!',
-    'Tepat sasaran!',
-    'Luar biasa! Keeper ketinggalan!'
-  ];
-  var STATE_FAIL = [
-    'Ketik lebih cermat!',
-    'Salah! Coba lagi!',
-    'Waktu habis atau nama salah!'
+  var PLAYERS_MEDIUM = [
+    {name:'MBAPPÉ',points:10}, {name:'VINÍCIUS JR',points:10}, {name:'BELLINGHAM',points:10},
+    {name:'GREALISH',points:10}, {name:'LEWANDOWSKI',points:10}, {name:'VAN DIJK',points:10},
+    {name:'BENZEMA',points:10}, {name:'MODRIĆ',points:10}, {name:'LAMINE YAMAL',points:10},
+    {name:'JOÃO FÉLIX',points:10}, {name:'SERGIO BUSQUETS',points:10}, {name:'GAVI PÁEZ',points:10},
+    {name:'THOMAS MÜLLER',points:10}, {name:'MANUEL NEUER',points:10}
   ];
 
-  var state = { score:0, lives:3, currentPlayer:null, playing:false, timeLeft:5, totalPoints:0 };
+  var PLAYERS_HARD = [
+    {name:'ACHRAF HAKIMI',points:15}, {name:'ALPHONSO DAVIES',points:15},
+    {name:'ANDREW ROBERTSON',points:15}, {name:'JORDI ALBA RAMOS',points:15},
+    {name:'GERARD PIQUÉ',points:15}, {name:'SERGEJ MILINKOVIĆ-SAVIĆ',points:15},
+    {name:'ALEKSANDAR MITROVIĆ',points:15}, {name:'EMILIANO MARTÍNEZ',points:15},
+    {name:'ÁNGEL DI MARÍA',points:15}, {name:'PAULO DYBALA',points:15},
+    {name:'JULIÁN ÁLVAREZ',points:15}, {name:'ANTONIO RÜDIGER',points:15},
+    {name:'MATS HUMMELS',points:15}, {name:'MATTHEW HOPPE',points:15}
+  ];
+
+  var PLAYERS_EXTREME = [
+    {name:'MUKHAMMADSALOKHIDDIN ABDULLAEV',points:25},
+    {name:'JONIBEKJON KARIMOV',points:25},
+    {name:'ILDARJON ZAKHIDOV',points:25},
+    {name:'SHUKHRAT MUKHAMMADIYEV',points:25},
+    {name:'ALEKSANDR KOKORIN',points:25},
+    {name:'SERGIUSZ MILEVSKIY',points:25},
+    {name:'SERHIJ SYDORCHUK',points:25},
+    {name:'ANDRIY SHEVCHENKO',points:25},
+    {name:'VASYL KULCHYTSKYY',points:25},
+    {name:'VIACHESLAV MALAFEEV',points:25},
+    {name:'MATTHIJS DE LIGT',points:25},
+    {name:'VIRGIL VAN DIJK',points:25},
+    {name:'BENJAMIN PAVARD',points:25}
+  ];
+
+  var STATE_READY = ['Siap untuk ditendang?', 'Fokus — ketik dengan cepat!', 'Waktunya terbatas — bersiaplah!'];
+  var STATE_GOAL = ['GOOOAAAAL! Luar biasa!', 'Sempurna! Keeper kalah!', 'Tepat sasaran — gawang tercetak!'];
+  var STATE_FAIL = ['Nama tidak cocok!', 'Terlambat atau salah!', 'Coba lagi di kesempatan berikutnya!'];
+
+  var state = { score:0, lives:3, currentPlayer:null, playing:false, timeLeft:5, roundsSeen:{} };
   var timerInterval = null;
 
   var els = {
@@ -779,7 +717,7 @@
     endMessage: document.getElementById('endMessage')
   };
 
-  /* ---------------- audio ---------------- */
+  /* Audio */
   var actx = null;
   function ctx(){
     if(!actx){
@@ -807,7 +745,7 @@
   function playBuzz(){ tone(140,0,0.25,'sawtooth',0.14); tone(110,0.05,0.3,'sawtooth',0.12); }
   function playTick(){ tone(880,0,0.08,'sine',0.12); }
 
-  /* ---------------- confetti ---------------- */
+  /* Confetti */
   var confettiParticles = [];
   var confettiRAF = null;
   function sizeCanvas(){
@@ -821,17 +759,17 @@
     sizeCanvas();
     var colors = ['#c41e3a','#005eb8','#ffcc33','#ffffff'];
     var cx = els.confetti.width/2, cy = els.confetti.height*0.32;
-    for(var i=0;i<28;i++){
+    for(var i=0;i<30;i++){
       confettiParticles.push({
         x:cx, y:cy,
-        vx:(Math.random()-0.5)*6,
-        vy:-Math.random()*5-2,
-        g:0.18,
+        vx:(Math.random()-0.5)*7,
+        vy:-Math.random()*6-1.5,
+        g:0.2,
         size:4+Math.random()*3,
         color:colors[i%colors.length],
-        life:55+Math.random()*20,
+        life:60+Math.random()*20,
         rot:Math.random()*Math.PI,
-        vr:(Math.random()-0.5)*0.3
+        vr:(Math.random()-0.5)*0.4
       });
     }
     if(!confettiRAF) tickConfetti();
@@ -853,18 +791,16 @@
     else { confettiRAF = null; }
   }
 
-  /* ---------------- timer ---------------- */
+  /* Timer */
   function updateTimerUI(){
     var circle = els.timerCircle;
     var text = els.timerText;
-    var pct = state.timeLeft / 5;
-    var offset = 251 * (1 - pct);
+    var pct = Math.max(0, state.timeLeft) / 5;
+    var offset = 268 * (1 - pct);
     circle.setAttribute('stroke-dashoffset', offset);
-
-    text.textContent = state.timeLeft;
+    text.textContent = Math.max(0, state.timeLeft);
     circle.classList.remove('warning','critical');
     text.classList.remove('warning','critical');
-
     if(state.timeLeft <= 1){ circle.classList.add('critical'); text.classList.add('critical'); }
     else if(state.timeLeft <= 2){ circle.classList.add('warning'); text.classList.add('warning'); }
   }
@@ -876,21 +812,20 @@
     timerInterval = setInterval(function(){
       state.timeLeft--;
       updateTimerUI();
-      if(state.timeLeft === 1 || state.timeLeft === 2){ playTick(); }
-      if(state.timeLeft <= 0){
+      if(state.timeLeft === 2 || state.timeLeft === 1){ playTick(); }
+      if(state.timeLeft < 0){
         clearInterval(timerInterval);
-        handleTimeUp();
+        if(state.playing) handleTimeUp();
       }
     }, 1000);
   }
 
   function handleTimeUp(){
-    if(!state.playing || !state.currentPlayer) return;
     state.playing = false;
     handleWrongAnswer('Waktu habis!');
   }
 
-  /* -------- Lives display -------- */
+  /* Lives */
   function updateLives(){
     Array.from(els.livesDisplay.children).forEach(function(heart, idx){
       if(idx >= state.lives){ heart.classList.add('lost'); }
@@ -898,13 +833,28 @@
     });
   }
 
-  /* -------- Game loop -------- */
+  /* Helpers */
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function getRandomPlayer(){
+    var pools = [PLAYERS_EASY, PLAYERS_MEDIUM, PLAYERS_HARD, PLAYERS_EXTREME];
+    var pool = pools[Math.min(3, Math.floor(state.score / 4))];
+    return pick(pool);
+  }
+
+  /* Game */
   function loadRound(){
-    var player = pick(PLAYERS_POOL);
-    state.currentPlayer = player;
-    els.playerName.textContent = player.name;
-    els.difficultyTag.textContent = player.diff;
-    els.difficultyTag.className = 'difficulty-tag ' + player.diff.toLowerCase();
+    state.currentPlayer = getRandomPlayer();
+    var name = state.currentPlayer.name;
+    els.playerName.textContent = name;
+
+    var diff;
+    if(name.length <= 6) diff = 'EASY';
+    else if(name.length <= 14) diff = 'MEDIUM';
+    else if(name.length <= 22) diff = 'HARD';
+    else diff = 'EXTREME';
+
+    els.difficultyTag.textContent = diff;
+    els.difficultyTag.className = 'difficulty-tag ' + diff.toLowerCase();
     els.answerInput.value = '';
     els.feedback.textContent = '';
     els.answerInput.disabled = false;
@@ -935,13 +885,11 @@
   }
 
   function handleCorrectAnswer(){
-    var points = state.currentPlayer.points;
     state.score++;
-    state.totalPoints += points;
     els.scoreVal.textContent = state.score;
     playKick();
     els.ball.className = 'ball-wrap kick-goal';
-    els.statusMsg.textContent = pick(STATE_GOAL) + ' (+' + points + ' poin)';
+    els.statusMsg.textContent = pick(STATE_GOAL);
     setTimeout(function(){ playCheer(); }, 350);
     setTimeout(function(){
       els.goal.classList.add('celebrate');
@@ -965,7 +913,6 @@
     els.ball.className = 'ball-wrap kick-miss';
     els.statusMsg.textContent = pick(STATE_FAIL) + ' (' + state.lives + ' nyawa sisa)';
     els.feedback.textContent = msg;
-
     setTimeout(function(){ els.stage.classList.remove('shake'); }, 450);
     if(state.lives <= 0){
       setTimeout(finishGame, 1200);
@@ -983,25 +930,25 @@
       els.endTitle.textContent = 'Pertandingan Berakhir!';
       msg = 'Coba lagi dengan fokus lebih tinggi!';
     } else if(state.score <= 3){
-      els.endTitle.textContent = 'Mulai Baik!';
-      msg = 'Terus latihan, kecepatan akan meningkat!';
+      els.endTitle.textContent = 'Lumayan!';
+      msg = 'Terus latihan, kecepatan Anda akan meningkat!';
     } else if(state.score <= 7){
-      els.endTitle.textContent = 'Bagus!';
-      msg = 'Refleks dan akurasi Anda meningkat!';
-    } else if(state.score <= 12){
-      els.endTitle.textContent = 'Luar Biasa!';
-      msg = 'Kecepatan dan ketepatan mengesankan! 🔥';
-    } else {
+      els.endTitle.textContent = 'Bagus Banget!';
+      msg = 'Refleks Anda sudah cukup baik!';
+    } else if(state.score <= 10){
       els.endTitle.textContent = 'MASTER PENALTY!';
-      msg = 'Anda adalah juara! Sempurna! 👑🔥';
+      msg = 'Kecepatan dan akurasi Anda luar biasa! 🔥';
+    } else {
+      els.endTitle.textContent = 'LEGENDA PERTAMINA!';
+      msg = 'Anda adalah pemain terbaik! Fantastis sekali! 🏆';
     }
-    els.endStats.textContent = 'Anda mencetak ' + state.score + ' gawang! Total poin: ' + state.totalPoints;
+    els.endStats.textContent = 'Anda mencetak <b>' + state.score + '</b> gawang!';
     els.endMessage.textContent = msg;
     els.endOverlay.classList.remove('hidden');
   }
 
   function startGame(){
-    state.score = 0; state.lives = 3; state.totalPoints = 0;
+    state.score = 0; state.lives = 3;
     els.scoreVal.textContent = 0;
     updateLives();
     els.startOverlay.classList.add('hidden');
