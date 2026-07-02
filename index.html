@@ -330,11 +330,26 @@
   .player-name{
     font-family:'Baloo 2';
     font-weight:800;
-    font-size:2rem;
+    font-size:1.6rem;
     color: var(--pertamina-blue);
     line-height:1.1;
-    letter-spacing:.5px;
+    letter-spacing:.3px;
+    word-break:break-word;
   }
+  .difficulty-tag{
+    display:inline-block;
+    font-weight:900;
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    padding:3px 9px;
+    border-radius:999px;
+    margin-top:4px;
+  }
+  .difficulty-tag.easy{ background:#c8e6c9; color:#2e7d32; }
+  .difficulty-tag.medium{ background:#fff9c4; color:#f57f17; }
+  .difficulty-tag.hard{ background:#ffccbc; color:#d84315; }
+  .difficulty-tag.extreme{ background:#f8bbd0; color:#c2185b; }
 
   .answer-form{ display:flex; flex-direction:column; gap:8px; }
   .answer-input{
@@ -483,16 +498,29 @@
 <svg width="0" height="0" style="position:absolute">
   <defs>
     <g id="soccer-ball">
-      <circle cx="50" cy="50" r="45" fill="#fffef9" stroke="#000" stroke-width="2.5"/>
-      <g stroke="#000" stroke-width="2" fill="none">
-        <path d="M50 8 Q68 15 72 35"/>
-        <path d="M72 35 Q80 50 68 65"/>
-        <path d="M68 65 Q50 75 32 65"/>
-        <path d="M32 65 Q20 50 28 35"/>
-        <path d="M28 35 Q32 15 50 8"/>
-        <path d="M50 28 L60 38 L55 52 L45 52 L40 38 Z"/>
-        <ellipse cx="50" cy="50" rx="24" ry="20" fill="none"/>
-      </g>
+      <defs>
+        <radialGradient id="ballGradient" cx="30%" cy="30%">
+          <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#e8e8e8;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <!-- Main ball sphere -->
+      <circle cx="50" cy="50" r="46" fill="url(#ballGradient)" stroke="#1a1a1a" stroke-width="0.8"/>
+      <!-- Pentagons (black) - classic soccer ball pattern -->
+      <polygon points="50,15 60,28 57,42 43,42 40,28" fill="#000"/>
+      <polygon points="50,85 60,72 57,58 43,58 40,72" fill="#000"/>
+      <polygon points="20,50 28,35 38,38 35,52 25,55" fill="#000"/>
+      <polygon points="80,50 72,65 62,62 65,48 75,45" fill="#000"/>
+      <polygon points="32,25 42,20 48,30 38,35" fill="#000"/>
+      <polygon points="68,75 58,80 52,70 62,65" fill="#000"/>
+      <!-- Hexagons (white with outlines) -->
+      <polygon points="45,32 55,32 61,45 55,58 45,58 39,45" fill="none" stroke="#000" stroke-width="0.5"/>
+      <polygon points="25,40 33,35 43,40 40,50 32,55 24,50" fill="none" stroke="#000" stroke-width="0.5"/>
+      <polygon points="75,60 67,65 57,60 60,50 68,45 76,50" fill="none" stroke="#000" stroke-width="0.5"/>
+      <polygon points="32,65 42,62 48,72 42,80 32,78 26,70" fill="none" stroke="#000" stroke-width="0.5"/>
+      <polygon points="68,25 58,28 52,18 62,15 72,18 78,30" fill="none" stroke="#000" stroke-width="0.5"/>
+      <!-- Highlight reflection for 3D effect -->
+      <ellipse cx="35" cy="35" rx="12" ry="10" fill="#fff" opacity="0.3"/>
     </g>
   </defs>
 </svg>
@@ -522,7 +550,7 @@
       <div class="flash"></div>
     </div>
 
-    <div class="banner" id="banner">GOAAAL!</div>
+    <div class="banner" id="banner">GOAL!</div>
 
     <div class="ball-wrap" id="ball">
       <svg viewBox="0 0 100 100"><use href="#soccer-ball"/></svg>
@@ -545,6 +573,7 @@
     <div class="player-name-display">
       <div class="player-label">🏟️ Ketik Nama Pemain</div>
       <div class="player-name" id="playerName">LOADING...</div>
+      <div class="difficulty-tag" id="difficultyTag">EASY</div>
     </div>
 
     <form class="answer-form" id="answerForm" autocomplete="off">
@@ -558,7 +587,7 @@
         autocorrect="off"
         spellcheck="false"
         inputmode="text"
-        maxlength="50"
+        maxlength="60"
       />
       <button class="submit-btn" id="submitBtn" type="submit">SUNDUL ⚽</button>
     </form>
@@ -578,9 +607,9 @@
     <p class="subtitle">⚽ Ketik Nama Pemain Dengan Cepat!</p>
     <div class="rules">
       <span>⏱️ 5 detik untuk mengetik nama pemain</span>
-      <span>⌨️ Ketik persis sesuai nama yang muncul</span>
+      <span>⌨️ Ketik PERSIS sesuai nama yang muncul</span>
       <span>❤️ 3 nyawa — salah 3x = GAME OVER</span>
-      <span>🔥 Adrenalin rush — semakin cepat semakin baik!</span>
+      <span>🔥 Nama panjang = lebih susah, semakin banyak poin!</span>
     </div>
     <button class="cta-btn" id="startBtn">MULAI PERTANDINGAN ▶</button>
   </div>
@@ -607,28 +636,93 @@
 (function(){
   "use strict";
 
-  var PLAYERS = [
-    'MESSI',
-    'RONALDO',
-    'MBAPPÉ',
-    'HAALAND',
-    'VINÍCIUS JR',
-    'BELLINGHAM',
-    'YAMAL',
-    'MODRIĆ',
-    'HAKIMI',
-    'DAVIES',
-    'SALAH',
-    'NEYMAR',
-    'LEWANDOWSKI',
-    'VAN DIJK',
-    'BENZEMA',
-    'GREALISH',
-    'FODEN',
-    'RODRI',
-    'SAKA',
-    'KANE'
+  var PLAYERS_POOL = [
+    {name:'MESSI', diff:null},
+    {name:'KANE', diff:null},
+    {name:'SALAH', diff:null},
+    {name:'SAKA', diff:null},
+    {name:'RODRI', diff:null},
+    {name:'FODEN', diff:null},
+    {name:'NEYMAR', diff:null},
+    {name:'RONALDO', diff:null},
+    {name:'HAALAND', diff:null},
+    {name:'VINÍCIUS JR', diff:null},
+    {name:'MBAPPÉ', diff:null},
+    {name:'BELLINGHAM', diff:null},
+    {name:'GREALISH', diff:null},
+    {name:'VAN DIJK', diff:null},
+    {name:'BENZEMA', diff:null},
+    {name:'LEWANDOWSKI', diff:null},
+    {name:'MODRIĆ', diff:null},
+    {name:'LAMINE YAMAL', diff:null},
+    {name:'ACHRAF HAKIMI', diff:null},
+    {name:'ALPHONSO DAVIES', diff:null},
+    {name:'JOÃO FÉLIX', diff:null},
+    {name:'BUKAYO SAKA', diff:null},
+    {name:'SERGIO BUSQUETS', diff:null},
+    {name:'PEDRI GONZÁLEZ', diff:null},
+    {name:'GAVI PÁEZ', diff:null},
+    {name:'THOMAS MÜLLER', diff:null},
+    {name:'MANUEL NEUER', diff:null},
+    {name:'ANDREW ROBERTSON', diff:null},
+    {name:'JORDI ALBA RAMOS', diff:null},
+    {name:'GERARD PIQUÉ', diff:null},
+    {name:'SERGEJ MILINKOVIĆ-SAVIĆ', diff:null},
+    {name:'ALEKSANDAR MITROVIĆ', diff:null},
+    {name:'EMILIANO MARTÍNEZ', diff:null},
+    {name:'ÁNGEL DI MARÍA', diff:null},
+    {name:'PAULO DYBALA', diff:null},
+    {name:'JULIÁN ÁLVAREZ', diff:null},
+    {name:'ALEKSANDR KOKORIN', diff:null},
+    {name:'SERGIUSZ MILEVSKIY', diff:null},
+    {name:'SERHIJ SYDORCHUK', diff:null},
+    {name:'ANDRIY SHEVCHENKO', diff:null},
+    {name:'VASYL KULCHYTSKYY', diff:null},
+    {name:'OLEG SHATOV', diff:null},
+    {name:'VLADISLAV SOLOVEI', diff:null},
+    {name:'VIACHESLAV MALAFEEV', diff:null},
+    {name:'MUKHAMMADSALOKHIDDIN ABDULLAEV', diff:null},
+    {name:'JONIBEKJON KARIMOV', diff:null},
+    {name:'ILDARJON ZAKHIDOV', diff:null},
+    {name:'SHUKHRAT MUKHAMMADIYEV', diff:null},
+    {name:'DUŠAN VLAHOVIĆ', diff:null},
+    {name:'ALEKSANDR ISAK', diff:null},
+    {name:'ERLING BRAUT HAALAND', diff:null},
+    {name:'MARTIN ØDEGAARD', diff:null},
+    {name:'MATTHIJS DE LIGT', diff:null},
+    {name:'VIRGIL VAN DIJK', diff:null},
+    {name:'GIOVANNI VAN BRONCKHORST', diff:null},
+    {name:'MATTHIAS GINTER', diff:null},
+    {name:'BENJAMIN PAVARD', diff:null},
+    {name:'ANTONIO RÜDIGER', diff:null},
+    {name:'MATS HUMMELS', diff:null},
+    {name:'CHRISTOPH KRAMER', diff:null},
+    {name:'EMRE CAN', diff:null},
+    {name:'JÉRÔME BOATENG', diff:null},
+    {name:'SÉBASTIEN KOHN', diff:null},
+    {name:'MOUSSA DIABY', diff:null},
+    {name:'WILLIAM SALIBA', diff:null},
+    {name:'RENATO SANCHES', diff:null},
+    {name:'GONÇALO INÁCIO', diff:null},
+    {name:'JOÃO CANCELO', diff:null},
+    {name:'DIOGO COSTA', diff:null},
+    {name:'RÚBEN DIAS', diff:null},
+    {name:'RÚBEN SEMEDO', diff:null},
+    {name:'PEPE FERREIRA', diff:null},
+    {name:'JOÃO PALHINHA', diff:null},
+    {name:'BRUNO FERNANDES', diff:null},
+    {name:'CRISTIANO RONALDO', diff:null},
+    {name:'DANILO PEREIRA', diff:null},
+    {name:'AMANCIO ORTEGA', diff:null}
   ];
+
+  function getDifficulty(name){
+    var len = name.length;
+    if(len <= 6) return 'EASY';
+    if(len <= 12) return 'MEDIUM';
+    if(len <= 18) return 'HARD';
+    return 'EXTREME';
+  }
 
   function shuffle(arr){
     var a = arr.slice();
@@ -641,28 +735,29 @@
   function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
   var STATE_READY = [
-    'Siap untuk ditendang? Ketik nama pemain dengan cepat!',
+    'Siap untuk ditendang? Ketik dengan cepat!',
     'Bersiaplah untuk adrenalin rush!',
-    'Waktu terbatas — fokus dan ketik dengan akurat!'
+    'Waktu terbatas — fokus dan akurat!'
   ];
   var STATE_GOAL = [
-    'GOOOAAAAL! Luar biasa!',
-    'Tepat sasaran! Gawang tercetak!',
-    'Sempurna! Keeper tidak bisa menangkap!'
+    'GOOOOOAL! Sempurna!',
+    'Tepat sasaran!',
+    'Luar biasa! Keeper ketinggalan!'
   ];
   var STATE_FAIL = [
-    'Ketik lebih teliti!',
-    'Salah! Coba lagi pada kesempatan berikutnya!',
-    'Terlambat atau salah nama!'
+    'Ketik lebih cermat!',
+    'Salah! Coba lagi!',
+    'Waktu habis atau nama salah!'
   ];
 
-  var state = { score:0, lives:3, currentPlayer:null, playing:false, timeLeft:5 };
+  var state = { score:0, lives:3, currentPlayer:null, playing:false, timeLeft:5, totalPoints:0 };
   var timerInterval = null;
 
   var els = {
     scoreVal: document.getElementById('scoreVal'),
     livesDisplay: document.getElementById('livesDisplay'),
     playerName: document.getElementById('playerName'),
+    difficultyTag: document.getElementById('difficultyTag'),
     answerForm: document.getElementById('answerForm'),
     answerInput: document.getElementById('answerInput'),
     submitBtn: document.getElementById('submitBtn'),
@@ -805,8 +900,11 @@
 
   /* -------- Game loop -------- */
   function loadRound(){
-    state.currentPlayer = pick(PLAYERS);
-    els.playerName.textContent = state.currentPlayer;
+    var player = pick(PLAYERS_POOL);
+    state.currentPlayer = player;
+    els.playerName.textContent = player.name;
+    els.difficultyTag.textContent = player.diff;
+    els.difficultyTag.className = 'difficulty-tag ' + player.diff.toLowerCase();
     els.answerInput.value = '';
     els.feedback.textContent = '';
     els.answerInput.disabled = false;
@@ -828,25 +926,27 @@
     els.answerInput.disabled = true;
     els.submitBtn.disabled = true;
 
-    if(input === state.currentPlayer){
+    if(input === state.currentPlayer.name){
       handleCorrectAnswer();
     } else {
-      els.feedback.textContent = 'Jawaban: ' + state.currentPlayer;
+      els.feedback.textContent = 'Jawaban: ' + state.currentPlayer.name;
       handleWrongAnswer('Nama tidak cocok!');
     }
   }
 
   function handleCorrectAnswer(){
+    var points = state.currentPlayer.points;
     state.score++;
+    state.totalPoints += points;
     els.scoreVal.textContent = state.score;
     playKick();
     els.ball.className = 'ball-wrap kick-goal';
-    els.statusMsg.textContent = pick(STATE_GOAL);
+    els.statusMsg.textContent = pick(STATE_GOAL) + ' (+' + points + ' poin)';
     setTimeout(function(){ playCheer(); }, 350);
     setTimeout(function(){
       els.goal.classList.add('celebrate');
       els.banner.className = 'banner goal-text show';
-      els.banner.textContent = 'GAWAAAAL!';
+      els.banner.textContent = 'GOAL!';
       burstConfetti();
     }, 400);
     setTimeout(function(){
@@ -883,22 +983,25 @@
       els.endTitle.textContent = 'Pertandingan Berakhir!';
       msg = 'Coba lagi dengan fokus lebih tinggi!';
     } else if(state.score <= 3){
-      els.endTitle.textContent = 'Lumayan!';
+      els.endTitle.textContent = 'Mulai Baik!';
       msg = 'Terus latihan, kecepatan akan meningkat!';
     } else if(state.score <= 7){
       els.endTitle.textContent = 'Bagus!';
-      msg = 'Anda sudah menunjukkan refleks yang baik!';
+      msg = 'Refleks dan akurasi Anda meningkat!';
+    } else if(state.score <= 12){
+      els.endTitle.textContent = 'Luar Biasa!';
+      msg = 'Kecepatan dan ketepatan mengesankan! 🔥';
     } else {
       els.endTitle.textContent = 'MASTER PENALTY!';
-      msg = 'Kecepatan dan akurasi Anda luar biasa! 🔥';
+      msg = 'Anda adalah juara! Sempurna! 👑🔥';
     }
-    els.endStats.textContent = 'Anda mencetak ' + state.score + ' gawang!';
+    els.endStats.textContent = 'Anda mencetak ' + state.score + ' gawang! Total poin: ' + state.totalPoints;
     els.endMessage.textContent = msg;
     els.endOverlay.classList.remove('hidden');
   }
 
   function startGame(){
-    state.score = 0; state.lives = 3;
+    state.score = 0; state.lives = 3; state.totalPoints = 0;
     els.scoreVal.textContent = 0;
     updateLives();
     els.startOverlay.classList.add('hidden');
