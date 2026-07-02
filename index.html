@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soccer Math — Adu Penalti Matematika</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+
+    <!-- Layar awal: pilih level dan operasi -->
+    <section id="screen-start" class="screen active">
+      <h1 class="title">⚽ Soccer Math</h1>
+      <p class="subtitle">Adu penalti matematika! Jawab benar untuk mencetak gol.</p>
+
+      <div class="panel">
+        <h2>Pilih Operasi</h2>
+        <div class="option-grid" id="op-options">
+          <button class="option selected" data-op="add">+ Penjumlahan</button>
+          <button class="option" data-op="sub">− Pengurangan</button>
+          <button class="option" data-op="mul">× Perkalian</button>
+          <button class="option" data-op="div">÷ Pembagian</button>
+          <button class="option" data-op="mix">🎲 Campuran</button>
+        </div>
+
+        <h2>Pilih Level</h2>
+        <div class="option-grid" id="level-options">
+          <button class="option selected" data-level="1">Mudah</button>
+          <button class="option" data-level="2">Sedang</button>
+          <button class="option" data-level="3">Sulit</button>
+        </div>
+
+        <button id="btn-start" class="btn-primary">Mulai Pertandingan!</button>
+      </div>
+
+      <p class="highscore" id="highscore-text"></p>
+    </section>
+
+    <!-- Layar permainan -->
+    <section id="screen-game" class="screen">
+      <header class="scoreboard">
+        <div class="score-item">Gol: <strong id="score">0</strong></div>
+        <div class="score-item">Tendangan: <strong id="kick-number">1</strong>/<span id="total-kicks">10</span></div>
+        <div class="score-item">Beruntun: <strong id="streak">0</strong> 🔥</div>
+      </header>
+
+      <div class="pitch">
+        <div class="goal">
+          <div class="net"></div>
+          <div class="keeper" id="keeper">🧤</div>
+        </div>
+        <div class="ball" id="ball">⚽</div>
+        <div class="result-flash" id="result-flash"></div>
+      </div>
+
+      <div class="question-box">
+        <div class="question" id="question">3 + 4 = ?</div>
+        <div class="answers" id="answers"></div>
+      </div>
+
+      <div class="timer-bar"><div class="timer-fill" id="timer-fill"></div></div>
+    </section>
+
+    <!-- Layar akhir -->
+    <section id="screen-end" class="screen">
+      <h1 class="title" id="end-title">Pertandingan Selesai!</h1>
+      <div class="final-score" id="final-score">0 / 10</div>
+      <p class="end-message" id="end-message"></p>
+      <p class="highscore" id="end-highscore"></p>
+      <div class="end-buttons">
+        <button id="btn-again" class="btn-primary">Main Lagi</button>
+        <button id="btn-menu" class="btn-secondary">Ganti Level</button>
+      </div>
+    </section>
+
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

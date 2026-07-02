@@ -1,0 +1,318 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --green-dark: #1b5e20;
+  --green: #2e7d32;
+  --green-light: #4caf50;
+  --white: #ffffff;
+  --yellow: #ffd600;
+  --red: #e53935;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: linear-gradient(180deg, #0d47a1 0%, #1976d2 35%, var(--green) 35%, var(--green-dark) 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: var(--white);
+}
+
+.app {
+  width: 100%;
+  max-width: 560px;
+  padding: 24px 16px;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.4rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  text-align: center;
+  margin: 8px 0 20px;
+  opacity: 0.9;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+  box-shadow: var(--shadow);
+}
+
+.panel h2 {
+  font-size: 1rem;
+  margin: 12px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.85;
+}
+
+.panel h2:first-child {
+  margin-top: 0;
+}
+
+.option-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option {
+  flex: 1 1 auto;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.option:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.option.selected {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: #212121;
+  font-weight: 700;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn-primary {
+  background: var(--yellow);
+  color: #212121;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+.highscore {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* ---- Permainan ---- */
+
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+}
+
+.pitch {
+  position: relative;
+  height: 220px;
+  margin: 16px 0;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--green-light) 0 28px,
+    var(--green) 28px 56px
+  );
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.goal {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 90px;
+  border: 5px solid var(--white);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+}
+
+.net {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.35) 0 1px, transparent 1px 14px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.35) 0 1px, transparent 1px 14px);
+}
+
+.keeper {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.4rem;
+  transition: left 0.4s ease;
+}
+
+.keeper.dive-left { left: 15%; }
+.keeper.dive-right { left: 85%; }
+
+.ball {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  transition: bottom 0.45s ease-in, left 0.45s ease-in, opacity 0.3s;
+}
+
+.ball.shoot-goal-left { bottom: 150px; left: 30%; }
+.ball.shoot-goal-right { bottom: 150px; left: 70%; }
+.ball.shoot-saved { bottom: 130px; opacity: 0.4; }
+
+.result-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.6rem;
+  font-weight: 900;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.result-flash.show {
+  opacity: 1;
+}
+
+.result-flash.goal { color: var(--yellow); }
+.result-flash.miss { color: var(--red); }
+
+.question-box {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.question {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.answers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.answer-btn {
+  padding: 14px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  background: var(--white);
+  color: #212121;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.15s;
+}
+
+.answer-btn:hover:not(:disabled) {
+  background: var(--yellow);
+}
+
+.answer-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.answer-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.answer-btn.correct { background: var(--green-light); color: var(--white); }
+.answer-btn.wrong { background: var(--red); color: var(--white); }
+
+.timer-bar {
+  height: 10px;
+  margin-top: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.timer-fill {
+  height: 100%;
+  width: 100%;
+  background: var(--yellow);
+  border-radius: 5px;
+  transition: width 0.1s linear;
+}
+
+.timer-fill.danger {
+  background: var(--red);
+}
+
+/* ---- Layar akhir ---- */
+
+.final-score {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 900;
+  margin: 20px 0;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.end-message {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.end-buttons {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+@media (max-width: 420px) {
+  .title { font-size: 1.8rem; }
+  .goal { width: 200px; }
+  .question { font-size: 1.6rem; }
+}
